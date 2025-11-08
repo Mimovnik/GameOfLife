@@ -1,6 +1,6 @@
 ﻿namespace GameOfLife.Domain;
 
-public class BoardDimensions
+public class BoardDimensions : IEquatable<BoardDimensions>
 {
     public int Width { get; }
     public int Height { get; }
@@ -24,4 +24,16 @@ public class BoardDimensions
 
         return new BoardDimensions(width, height);
     }
+
+    public bool Equals(BoardDimensions? other)
+    {
+        if (other is null) return false;
+        return Width == other.Width && Height == other.Height;
+    }
+
+    public override bool Equals(object? obj) =>
+        Equals(obj as BoardDimensions);
+    
+    public override int GetHashCode() =>
+        HashCode.Combine(Width, Height);
 }
