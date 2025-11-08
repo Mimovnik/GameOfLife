@@ -33,11 +33,31 @@
             curl
             unzip
             jq
+
+            fontconfig
+            freetype
+            libglvnd
+            xorg.libX11
+            xorg.libxcb
+            xorg.libXcursor
+            xorg.libXrender
+            xorg.libXrandr
+            xorg.libXi
+            xorg.libXtst
+            xorg.libXinerama
+            xorg.libXfixes
+            xorg.libSM
+            xorg.libICE
+            harfbuzz
+            pango
+            cairo
+            openssl
+            zlib
           ];
 
           shellHook = ''
             # Configure .NET environment
-            export DOTNET_ROOT="${pkgs.dotnet-sdk}"
+            export DOTNET_ROOT="${pkgs.dotnet-sdk_9}"
             export DOTNET_CLI_TELEMETRY_OPTOUT=1
             export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
             export DOTNET_NOLOGO=1
@@ -47,6 +67,29 @@
 
             # Set up NuGet config to use system packages when possible
             export NUGET_PACKAGES="$HOME/.nuget/packages"
+
+            # Make native libraries required by Avalonia/Skia visible at runtime
+            export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [
+              pkgs.fontconfig
+              pkgs.freetype
+              pkgs.libglvnd
+              pkgs.xorg.libX11
+              pkgs.xorg.libxcb
+              pkgs.xorg.libXcursor
+              pkgs.xorg.libXrender
+              pkgs.xorg.libXrandr
+              pkgs.xorg.libXi
+              pkgs.xorg.libXtst
+              pkgs.xorg.libXinerama
+              pkgs.xorg.libXfixes
+              pkgs.xorg.libSM
+              pkgs.xorg.libICE
+              pkgs.harfbuzz
+              pkgs.pango
+              pkgs.cairo
+              pkgs.openssl
+              pkgs.zlib
+            ]}:$LD_LIBRARY_PATH"
 
             echo ".NET SDK version:"
             dotnet --version
