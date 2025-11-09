@@ -4,7 +4,7 @@ namespace GameOfLife.Domain.Specs;
 
 public class when_creating_board_dimensions_with_width_zero
 {
-    static Exception exception;
+    static Exception exception = null!;
 
     Because of = () =>
         exception = Catch.Exception(() => BoardDimensions.Create(width: 0, height: 120));
@@ -15,7 +15,7 @@ public class when_creating_board_dimensions_with_width_zero
 
 public class when_creating_board_dimensions_with_negative_width
 {
-    static Exception exception;
+    static Exception exception = null!;
 
     Because of = () =>
         exception = Catch.Exception(() => BoardDimensions.Create(width: -5, height: 120));
@@ -26,7 +26,7 @@ public class when_creating_board_dimensions_with_negative_width
 
 public class when_creating_board_dimensions_with_height_zero
 {
-    static Exception exception;
+    static Exception exception = null!;
 
     Because of = () =>
         exception = Catch.Exception(() => BoardDimensions.Create(width: 120, height: 0));
@@ -37,7 +37,7 @@ public class when_creating_board_dimensions_with_height_zero
 
 public class when_creating_board_dimensions_with_negative_height
 {
-    static Exception exception;
+    static Exception exception = null!;
 
     Because of = () =>
         exception = Catch.Exception(() => BoardDimensions.Create(width: 120, height: -80));
@@ -48,8 +48,8 @@ public class when_creating_board_dimensions_with_negative_height
 
 public class when_comparing_two_board_dimensions_with_same_values
 {
-    static BoardDimensions dimensions1;
-    static BoardDimensions dimensions2;
+    static BoardDimensions dimensions1 = null!;
+    static BoardDimensions dimensions2 = null!;
     static bool are_equal;
 
     Establish context = () =>
