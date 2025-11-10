@@ -20,6 +20,9 @@ public partial class GameViewModel : ObservableObject
     [ObservableProperty]
     private string _startButtonText = "Start";
 
+    [ObservableProperty]
+    private int _speedMs = 100;
+
     public GameViewModel()
     {
         var dimensions = BoardDimensions.Create(100, 100);
@@ -28,6 +31,15 @@ public partial class GameViewModel : ObservableObject
         
         _game = new Game(ruleSet, board);
         _boardViewModel = new BoardViewModel(_game.Board);
+    }
+
+    partial void OnSpeedMsChanged(int value)
+    {
+        if (IsRunning)
+        {
+            Stop();
+            Start();
+        }
     }
 
     [RelayCommand]
@@ -54,7 +66,7 @@ public partial class GameViewModel : ObservableObject
     {
         IsRunning = true;
         StartButtonText = "Pause";
-        _timer = new Timer(_ => NextGeneration(), null, TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
+        _timer = new Timer(_ => NextGeneration(), null, TimeSpan.Zero, TimeSpan.FromMilliseconds(SpeedMs));
     }
 
     private void Stop()
