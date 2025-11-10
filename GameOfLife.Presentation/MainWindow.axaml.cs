@@ -8,6 +8,8 @@ namespace GameOfLife.Presentation;
 
 public partial class MainWindow : Window
 {
+    private bool _isMenuOpen = false;
+
     public MainWindow()
     {
         InitializeComponent();
@@ -18,15 +20,29 @@ public partial class MainWindow : Window
     {
         if (MenuPanel != null)
         {
-            MenuPanel.IsVisible = !MenuPanel.IsVisible;
+            _isMenuOpen = !_isMenuOpen;
+            
+            MenuPanel.Classes.Remove("open");
+            MenuPanel.Classes.Remove("closed");
+            
+            if (_isMenuOpen)
+            {
+                MenuPanel.Classes.Add("open");
+            }
+            else
+            {
+                MenuPanel.Classes.Add("closed");
+            }
         }
     }
 
     private void NewGame_Click(object? sender, RoutedEventArgs e)
     {
-        if (MenuPanel != null)
+        if (MenuPanel != null && _isMenuOpen)
         {
-            MenuPanel.IsVisible = false;
+            _isMenuOpen = false;
+            MenuPanel.Classes.Remove("open");
+            MenuPanel.Classes.Add("closed");
         }
         
         var dialog = new NewGameDialog();

@@ -127,8 +127,34 @@
                     Width="250"
                     HorizontalAlignment="Left"
                     Background="#2C2C2C"
-                    IsVisible="False"
-                    BoxShadow="5 0 15 0 #40000000">
+                    BoxShadow="5 0 15 0 #40000000"
+                    Margin="-250,0,0,0">
+                <Border.Styles>
+                    <Style Selector="Border.open">
+                        <Style.Animations>
+                            <Animation Duration="0:0:0.3" FillMode="Forward">
+                                <KeyFrame Cue="0%">
+                                    <Setter Property="Margin" Value="-250,0,0,0"/>
+                                </KeyFrame>
+                                <KeyFrame Cue="100%">
+                                    <Setter Property="Margin" Value="0,0,0,0"/>
+                                </KeyFrame>
+                            </Animation>
+                        </Style.Animations>
+                    </Style>
+                    <Style Selector="Border.closed">
+                        <Style.Animations>
+                            <Animation Duration="0:0:0.3" FillMode="Forward">
+                                <KeyFrame Cue="0%">
+                                    <Setter Property="Margin" Value="0,0,0,0"/>
+                                </KeyFrame>
+                                <KeyFrame Cue="100%">
+                                    <Setter Property="Margin" Value="-250,0,0,0"/>
+                                </KeyFrame>
+                            </Animation>
+                        </Style.Animations>
+                    </Style>
+                </Border.Styles>
                 <StackPanel Margin="0,20,0,0" Spacing="5">
                     <Button Content="New Game"
                             Click="NewGame_Click"
