@@ -105,6 +105,11 @@ public partial class MainWindow : Window
             SavesListPanel.IsVisible = _isSavesListVisible;
         }
 
+        if (SavesArrow != null)
+        {
+            SavesArrow.Text = _isSavesListVisible ? "▼" : "▶";
+        }
+
         if (_isSavesListVisible)
         {
             await RefreshSavesList();
@@ -129,19 +134,30 @@ public partial class MainWindow : Window
         {
             foreach (var saveName in savesList)
             {
-                var button = new Button
+                var grid = new Grid
+                {
+                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
+                    Background = new SolidColorBrush(Color.Parse("#252525")),
+                    Margin = new Avalonia.Thickness(0, 0, 0, 2)
+                };
+                
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+
+                var loadButton = new Button
                 {
                     Content = saveName,
                     Padding = new Avalonia.Thickness(15, 10),
                     FontSize = 13,
                     HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
                     HorizontalContentAlignment = Avalonia.Layout.HorizontalAlignment.Left,
-                    Background = new SolidColorBrush(Color.Parse("#252525")),
+                    Background = Brushes.Transparent,
+                    BorderThickness = new Avalonia.Thickness(0),
                     Foreground = new SolidColorBrush(Colors.White),
                     Tag = saveName
                 };
                 
-                button.Click += async (s, args) =>
+                loadButton.Click += async (s, args) =>
                 {
                     if (s is Button btn && btn.Tag is string name)
                     {
@@ -149,7 +165,44 @@ public partial class MainWindow : Window
                     }
                 };
 
-                SavesListContainer.Children.Add(button);
+                var deleteButton = new Button
+                {
+                    Content = "✕",
+                    FontSize = 18,
+                    Padding = new Avalonia.Thickness(10, 10),
+                    Background = new SolidColorBrush(Color.Parse("#D32F2F")),
+                    Foreground = new SolidColorBrush(Colors.White),
+                    BorderThickness = new Avalonia.Thickness(0),
+                    VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch,
+                    IsVisible = false,
+                    Tag = saveName
+                };
+                
+                deleteButton.Click += async (s, args) =>
+                {
+                    if (s is Button btn && btn.Tag is string name)
+                    {
+                        await DeleteSavedGame(name);
+                    }
+                };
+
+                grid.PointerEntered += (s, args) =>
+                {
+                    deleteButton.IsVisible = true;
+                };
+                
+                grid.PointerExited += (s, args) =>
+                {
+                    deleteButton.IsVisible = false;
+                };
+
+                Grid.SetColumn(loadButton, 0);
+                Grid.SetColumn(deleteButton, 1);
+                
+                grid.Children.Add(loadButton);
+                grid.Children.Add(deleteButton);
+
+                SavesListContainer.Children.Add(grid);
             }
         }
     }
@@ -176,6 +229,22 @@ public partial class MainWindow : Window
                 SavesListPanel.IsVisible = false;
             }
         }
+    }
+
+    private async Task DeleteSavedGame(string saveName)
+    {
+        var dialog = new DeleteSaveDialog(saveName);
+        
+        dialog.Closed += async (s, args) =>
+        {
+            if (dialog.Confirmed)
+            {
+                await _repository.DeleteGameAsync(saveName);
+                await RefreshSavesList();
+            }
+        };
+        
+        dialog.Show();
     }
 
     private void Exit_Click(object? sender, RoutedEventArgs e)
