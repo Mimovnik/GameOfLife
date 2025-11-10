@@ -8,35 +8,51 @@
              x:DataType="vm:GameViewModel">
     <StackPanel Orientation="Vertical" 
                 Margin="20,0,0,0"
+                MinWidth="150"
                 Spacing="2">
         <StackPanel Orientation="Horizontal" Spacing="5">
             <TextBlock Text="Generation:" 
                        VerticalAlignment="Center"
-                       FontSize="11"/>
+                       Foreground="White"
+                       FontSize="11"
+                       Width="65"/>
             <TextBlock Text="{Binding Generation}" 
                        VerticalAlignment="Center"
+                       Foreground="White"
                        FontSize="11"
-                       FontWeight="Bold"/>
+                       FontWeight="Bold"
+                       Width="80"
+                       TextAlignment="Right"/>
         </StackPanel>
         
         <StackPanel Orientation="Horizontal" Spacing="5">
             <TextBlock Text="Births:" 
                        VerticalAlignment="Center"
-                       FontSize="11"/>
+                       Foreground="White"
+                       FontSize="11"
+                       Width="65"/>
             <TextBlock Text="{Binding BirthCount}" 
                        VerticalAlignment="Center"
+                       Foreground="White"
                        FontSize="11"
-                       FontWeight="Bold"/>
+                       FontWeight="Bold"
+                       Width="80"
+                       TextAlignment="Right"/>
         </StackPanel>
         
         <StackPanel Orientation="Horizontal" Spacing="5">
             <TextBlock Text="Deaths:" 
                        VerticalAlignment="Center"
-                       FontSize="11"/>
+                       Foreground="White"
+                       FontSize="11"
+                       Width="65"/>
             <TextBlock Text="{Binding DeathCount}" 
                        VerticalAlignment="Center"
+                       Foreground="White"
                        FontSize="11"
-                       FontWeight="Bold"/>
+                       FontWeight="Bold"
+                       Width="80"
+                       TextAlignment="Right"/>
         </StackPanel>
     </StackPanel>
 </UserControl>

@@ -14,8 +14,21 @@ public partial class MainWindow : Window
         DataContext = new GameViewModel();
     }
 
+    private void MenuButton_Click(object? sender, RoutedEventArgs e)
+    {
+        if (MenuPanel != null)
+        {
+            MenuPanel.IsVisible = !MenuPanel.IsVisible;
+        }
+    }
+
     private void NewGame_Click(object? sender, RoutedEventArgs e)
     {
+        if (MenuPanel != null)
+        {
+            MenuPanel.IsVisible = false;
+        }
+        
         var dialog = new NewGameDialog();
         
         dialog.Closed += (s, args) =>

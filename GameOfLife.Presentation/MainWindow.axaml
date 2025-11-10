@@ -14,20 +14,133 @@
         <vm:GameViewModel/>
     </Design.DataContext>
 
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Top" 
-                    Orientation="Horizontal" 
-                    Margin="10"
-                    Spacing="10">
-            <Button Content="New Game"
-                    Click="NewGame_Click"
-                    Padding="15,8"
-                    FontSize="14"
-                    MinWidth="100"/>
-            <views:GameControlsPanel DataContext="{Binding}"/>
-            <views:GameStatsPanel DataContext="{Binding}"/>
-        </StackPanel>
-
-        <views:GameBoardView DataContext="{Binding BoardViewModel}"/>
-    </DockPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0" Background="#2C2C2C" Height="60">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <Button Grid.Column="0"
+                        x:Name="MenuButton"
+                        Content="☰"
+                        FontSize="24"
+                        Padding="15,0"
+                        VerticalAlignment="Center"
+                        Margin="10,0,0,0"
+                        Click="MenuButton_Click"
+                        Background="Transparent"
+                        Foreground="White"
+                        BorderThickness="0"/>
+                
+                <StackPanel Grid.Column="1" 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Spacing="10">
+                    <Button Content="{Binding StartButtonText}" 
+                            Command="{Binding ToggleStartCommand}"
+                            Padding="20,10"
+                            FontSize="14"
+                            FontWeight="Bold"
+                            MinWidth="100"/>
+                    <Button Content="Next ▶" 
+                            Command="{Binding NextGenerationCommand}"
+                            Padding="15,10"
+                            FontSize="14"/>
+                    
+                    <TextBlock Text="Speed:" 
+                               VerticalAlignment="Center"
+                               Margin="20,0,5,0"
+                               Foreground="White"
+                               FontSize="14"/>
+                    
+                    <Slider Value="{Binding SpeedMs, Mode=TwoWay}"
+                            Minimum="100"
+                            Maximum="1000"
+                            Width="150"
+                            VerticalAlignment="Center"
+                            TickFrequency="10"
+                            IsSnapToTickEnabled="True"/>
+                    
+                    <TextBox Text="{Binding SpeedMs, Mode=TwoWay}"
+                             Width="50"
+                             VerticalAlignment="Center"
+                             HorizontalContentAlignment="Center"
+                             FontSize="14"/>
+                    
+                    <TextBlock Text="ms" 
+                               VerticalAlignment="Center"
+                               Foreground="White"
+                               FontSize="14"/>
+                </StackPanel>
+                
+                <views:GameStatsPanel Grid.Column="2" 
+                                      DataContext="{Binding}"
+                                      VerticalAlignment="Center"
+                                      Margin="0,0,20,0"/>
+            </Grid>
+            
+            <Grid Grid.Row="1" Background="#232323" Height="40">
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Spacing="20">
+                    <CheckBox Content="Auto-pause on stable state"
+                              IsChecked="{Binding AutoPauseOnStableState, Mode=TwoWay}"
+                              VerticalAlignment="Center"
+                              Foreground="White"
+                              FontSize="13"/>
+                    
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <TextBlock Text="History depth:" 
+                                   VerticalAlignment="Center"
+                                   Foreground="White"
+                                   FontSize="13"/>
+                        
+                        <TextBox Text="{Binding HistoryDepth, Mode=TwoWay}"
+                                 Width="50"
+                                 VerticalAlignment="Center"
+                                 HorizontalContentAlignment="Center"
+                                 FontSize="13"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        
+        <Grid Grid.Row="1">
+            <views:GameBoardView DataContext="{Binding BoardViewModel}"/>
+            
+            <Border x:Name="MenuPanel"
+                    Width="250"
+                    HorizontalAlignment="Left"
+                    Background="#2C2C2C"
+                    IsVisible="False"
+                    BoxShadow="5 0 15 0 #40000000">
+                <StackPanel Margin="0,20,0,0" Spacing="5">
+                    <Button Content="New Game"
+                            Click="NewGame_Click"
+                            Padding="20,12"
+                            FontSize="14"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Margin="10,0"
+                            Background="#3C3C3C"
+                            Foreground="White"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
 </Window>
