@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -14,7 +13,6 @@ public partial class GameViewModel : ObservableObject
     private readonly Game _game;
     private Timer? _timer;
     private readonly ConcurrentQueue<Board> _boardHistory;
-    private readonly int _maxPeriod = 5;
 
     [ObservableProperty]
     private BoardViewModel _boardViewModel;
@@ -30,6 +28,12 @@ public partial class GameViewModel : ObservableObject
 
     [ObservableProperty]
     private int _generation = 0;
+
+    [ObservableProperty]
+    private bool _autoPauseOnStableState = true;
+
+    [ObservableProperty]
+    private int _historyDepth = 10;
 
     public GameViewModel()
     {
@@ -56,7 +60,7 @@ public partial class GameViewModel : ObservableObject
     {
         _boardHistory.Enqueue(_game.Board);
         
-        while (_boardHistory.Count > _maxPeriod)
+        while (_boardHistory.Count > HistoryDepth)
         {
             _boardHistory.TryDequeue(out _);
         }
@@ -65,7 +69,10 @@ public partial class GameViewModel : ObservableObject
         BoardViewModel.UpdateFromBoard(_game.Board);
         Generation++;
         
-        CheckForStableState();
+        if (AutoPauseOnStableState)
+        {
+            CheckForStableState();
+        }
     }
 
     private void CheckForStableState()

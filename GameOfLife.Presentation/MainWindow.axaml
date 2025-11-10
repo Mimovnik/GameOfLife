@@ -67,6 +67,23 @@
                        VerticalAlignment="Center"
                        Margin="5,0,0,0"
                        FontSize="14"/>
+            
+            <CheckBox Content="Auto-pause on stable state"
+                      IsChecked="{Binding AutoPauseOnStableState, Mode=TwoWay}"
+                      VerticalAlignment="Center"
+                      Margin="20,0,0,0"
+                      FontSize="14"/>
+            
+            <TextBlock Text="History depth:" 
+                       VerticalAlignment="Center"
+                       Margin="10,0,5,0"
+                       FontSize="14"/>
+            
+            <TextBox Text="{Binding HistoryDepth, Mode=TwoWay}"
+                     Width="50"
+                     VerticalAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                     FontSize="14"/>
         </StackPanel>
 
         <ScrollViewer HorizontalScrollBarVisibility="Auto" 
