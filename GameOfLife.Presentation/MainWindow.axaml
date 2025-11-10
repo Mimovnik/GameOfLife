@@ -2,8 +2,52 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:vm="clr-namespace:GameOfLife.Presentation.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="1000"
         x:Class="GameOfLife.Presentation.MainWindow"
-        Title="GameOfLife.Presentation">
-    Welcome to Avalonia!
+        x:DataType="vm:BoardViewModel"
+        Title="Game of Life - 100x100 Grid"
+        Width="1000"
+        Height="1000">
+    <Design.DataContext>
+        <vm:BoardViewModel/>
+    </Design.DataContext>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+                  VerticalScrollBarVisibility="Auto">
+        <ItemsControl ItemsSource="{Binding Cells}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="{Binding Columns}"
+                                 Rows="{Binding Rows}"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="vm:CellViewModel">
+                    <ToggleButton Margin="0"
+                                  Padding="0"
+                                  Width="8"
+                                  Height="8"
+                                  BorderBrush="#CCCCCC"
+                                  BorderThickness="0"
+                                  IsChecked="{Binding IsAlive, Mode=TwoWay}">
+                        <ToggleButton.Styles>
+                            <Style Selector="ToggleButton">
+                                <Setter Property="Background" Value="White"/>
+                                <Setter Property="CornerRadius" Value="0"/>
+                            </Style>
+                            <Style Selector="ToggleButton:checked">
+                                <Setter Property="Background" Value="Black"/>
+                            </Style>
+                            <Style Selector="ToggleButton:pointerover">
+                                <Setter Property="BorderBrush" Value="#666666"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                            </Style>
+                        </ToggleButton.Styles>
+                    </ToggleButton>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ScrollViewer>
 </Window>

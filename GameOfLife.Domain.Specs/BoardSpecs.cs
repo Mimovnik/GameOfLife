@@ -65,19 +65,3 @@ public class when_comparing_two_board_dimensions_with_same_values
         are_equal.ShouldBeTrue();
 }
 
-public class when_toggling_a_cell
-{
-    static Board board = null!;
-    static Coords coords = new Coords(10, 10);
-
-    Establish context = () =>
-    {
-        var dims = BoardDimensions.Create(100, 100);
-        board = new Board(dims);
-    };
-
-    Because of = () => board.SetCellStateAt(coords, true);
-
-    It board_is_updated = () => board.GetCellAt(coords).IsAlive.ShouldBeTrue();
-}
-

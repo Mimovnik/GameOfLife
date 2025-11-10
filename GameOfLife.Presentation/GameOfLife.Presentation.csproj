@@ -18,9 +18,11 @@
       <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\GameOfLife.App\GameOfLife.App.csproj" />
+    <ProjectReference Include="..\GameOfLife.Domain\GameOfLife.Domain.csproj" />
   </ItemGroup>
 </Project>

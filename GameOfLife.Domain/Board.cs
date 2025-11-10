@@ -30,23 +30,6 @@ public class Board
         return Cells[coords];
     }
 
-    public void SetCellStateAt(Coords coords, bool isAlive)
-    {
-        if (!isInBounds(coords))
-        {
-            throw new ArgumentOutOfRangeException(nameof(coords), "Coordinates are out of board bounds.");
-        }
-        var cell = Cells[coords];
-        if (isAlive)
-        {
-            cell.SetAlive();
-        }
-        else
-        {
-            cell.SetDead();
-        }
-    }
-
     private bool isInBounds(Coords coords)
     {
         return coords.X >= 0 && coords.X < Dimensions.Width &&
