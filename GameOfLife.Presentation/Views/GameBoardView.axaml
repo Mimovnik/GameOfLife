@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:GameOfLife.Presentation.ViewModels"
+             xmlns:converters="clr-namespace:GameOfLife.Presentation.Converters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
+             x:Class="GameOfLife.Presentation.Views.GameBoardView"
+             x:DataType="vm:BoardViewModel">
+    <UserControl.Resources>
+        <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
+    </UserControl.Resources>
+    
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+                  VerticalScrollBarVisibility="Auto">
+        <Viewbox Stretch="Uniform">
+            <ItemsControl ItemsSource="{Binding Cells}"
+                          PointerMoved="Grid_PointerMoved"
+                          x:Name="GridControl">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="{Binding Columns}"
+                                     Rows="{Binding Rows}"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="vm:CellViewModel">
+                        <Border Width="10"
+                                Height="10"
+                                Background="{Binding IsAlive, Converter={StaticResource BoolToColorConverter}}"
+                                PointerPressed="Cell_PointerPressed"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Viewbox>
+    </ScrollViewer>
+</UserControl>

@@ -3,16 +3,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:GameOfLife.Presentation.ViewModels"
-        xmlns:converters="clr-namespace:GameOfLife.Presentation.Converters"
+        xmlns:views="clr-namespace:GameOfLife.Presentation.Views"
         mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="1000"
         x:Class="GameOfLife.Presentation.MainWindow"
         x:DataType="vm:GameViewModel"
         Title="Game of Life - 100x100 Grid"
         Width="1000"
         Height="1000">
-    <Window.Resources>
-        <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
-    </Window.Resources>
     <Design.DataContext>
         <vm:GameViewModel/>
     </Design.DataContext>
@@ -22,115 +19,10 @@
                     Orientation="Horizontal" 
                     Margin="10"
                     Spacing="10">
-            <Button Content="{Binding StartButtonText}" 
-                    Command="{Binding ToggleStartCommand}"
-                    Padding="15,8"
-                    FontSize="14"
-                    MinWidth="80"/>
-            <Button Content="Next Generation" 
-                    Command="{Binding NextGenerationCommand}"
-                    Padding="15,8"
-                    FontSize="14"/>
-            
-            <StackPanel Orientation="Vertical" 
-                        Margin="20,0,0,0"
-                        Spacing="2">
-                <StackPanel Orientation="Horizontal" Spacing="5">
-                    <TextBlock Text="Generation:" 
-                               VerticalAlignment="Center"
-                               FontSize="11"/>
-                    <TextBlock Text="{Binding Generation}" 
-                               VerticalAlignment="Center"
-                               FontSize="11"
-                               FontWeight="Bold"/>
-                </StackPanel>
-                
-                <StackPanel Orientation="Horizontal" Spacing="5">
-                    <TextBlock Text="Births:" 
-                               VerticalAlignment="Center"
-                               FontSize="11"/>
-                    <TextBlock Text="{Binding BirthCount}" 
-                               VerticalAlignment="Center"
-                               FontSize="11"
-                               FontWeight="Bold"/>
-                </StackPanel>
-                
-                <StackPanel Orientation="Horizontal" Spacing="5">
-                    <TextBlock Text="Deaths:" 
-                               VerticalAlignment="Center"
-                               FontSize="11"/>
-                    <TextBlock Text="{Binding DeathCount}" 
-                               VerticalAlignment="Center"
-                               FontSize="11"
-                               FontWeight="Bold"/>
-                </StackPanel>
-            </StackPanel>
-            
-            <TextBlock Text="Speed (ms):" 
-                       VerticalAlignment="Center"
-                       Margin="20,0,5,0"
-                       FontSize="14"/>
-            
-            <Slider Value="{Binding SpeedMs, Mode=TwoWay}"
-                    Minimum="100"
-                    Maximum="1000"
-                    Width="200"
-                    VerticalAlignment="Center"
-                    TickFrequency="10"
-                    IsSnapToTickEnabled="True"/>
-            
-            <TextBox Text="{Binding SpeedMs, Mode=TwoWay}"
-                     Width="60"
-                     VerticalAlignment="Center"
-                     HorizontalContentAlignment="Center"
-                     FontSize="14"/>
-            
-            <TextBlock Text="ms" 
-                       VerticalAlignment="Center"
-                       Margin="5,0,0,0"
-                       FontSize="14"/>
-            
-            <CheckBox Content="Auto-pause on stable state"
-                      IsChecked="{Binding AutoPauseOnStableState, Mode=TwoWay}"
-                      VerticalAlignment="Center"
-                      Margin="20,0,0,0"
-                      FontSize="14"/>
-            
-            <TextBlock Text="History depth:" 
-                       VerticalAlignment="Center"
-                       Margin="10,0,5,0"
-                       FontSize="14"/>
-            
-            <TextBox Text="{Binding HistoryDepth, Mode=TwoWay}"
-                     Width="50"
-                     VerticalAlignment="Center"
-                     HorizontalContentAlignment="Center"
-                     FontSize="14"/>
+            <views:GameControlsPanel DataContext="{Binding}"/>
+            <views:GameStatsPanel DataContext="{Binding}"/>
         </StackPanel>
 
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" 
-                      VerticalScrollBarVisibility="Auto">
-            <Viewbox Stretch="Uniform">
-                <ItemsControl ItemsSource="{Binding BoardViewModel.Cells}"
-                              PointerMoved="Grid_PointerMoved"
-                              x:Name="GridControl">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Columns="{Binding BoardViewModel.Columns}"
-                                         Rows="{Binding BoardViewModel.Rows}"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="vm:CellViewModel">
-                            <Border Width="10"
-                                    Height="10"
-                                    Background="{Binding IsAlive, Converter={StaticResource BoolToColorConverter}}"
-                                    PointerPressed="Cell_PointerPressed"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </Viewbox>
-        </ScrollViewer>
+        <views:GameBoardView DataContext="{Binding BoardViewModel}"/>
     </DockPanel>
 </Window>
