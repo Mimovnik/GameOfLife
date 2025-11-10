@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -10,8 +13,8 @@ public partial class GameViewModel : ObservableObject
 {
     private readonly Game _game;
     private Timer? _timer;
-    private Board? _previousBoard;
-    private Board? _secondPreviousBoard;
+    private readonly ConcurrentQueue<Board> _boardHistory;
+    private readonly int _maxPeriod = 5;
 
     [ObservableProperty]
     private BoardViewModel _boardViewModel;
@@ -36,6 +39,7 @@ public partial class GameViewModel : ObservableObject
         
         _game = new Game(ruleSet, board);
         _boardViewModel = new BoardViewModel(_game.Board);
+        _boardHistory = new ConcurrentQueue<Board>();
     }
 
     partial void OnSpeedMsChanged(int value)
@@ -50,8 +54,12 @@ public partial class GameViewModel : ObservableObject
     [RelayCommand]
     private void NextGeneration()
     {
-        _secondPreviousBoard = _previousBoard;
-        _previousBoard = _game.Board;
+        _boardHistory.Enqueue(_game.Board);
+        
+        while (_boardHistory.Count > _maxPeriod)
+        {
+            _boardHistory.TryDequeue(out _);
+        }
         
         _game.NextGeneration();
         BoardViewModel.UpdateFromBoard(_game.Board);
@@ -62,18 +70,17 @@ public partial class GameViewModel : ObservableObject
 
     private void CheckForStableState()
     {
-        if (_previousBoard != null && _game.Board.Equals(_previousBoard))
+        var historySnapshot = _boardHistory.ToArray();
+        
+        foreach (var previousBoard in historySnapshot)
         {
-            if (IsRunning)
+            if (_game.Board.Equals(previousBoard))
             {
-                Stop();
-            }
-        }
-        else if (_secondPreviousBoard != null && _game.Board.Equals(_secondPreviousBoard))
-        {
-            if (IsRunning)
-            {
-                Stop();
+                if (IsRunning)
+                {
+                    Stop();
+                }
+                return;
             }
         }
     }
