@@ -30,6 +30,29 @@ public class Board
         return Cells[coords];
     }
 
+    public IEnumerable<Cell> GetAllCells()
+    {
+        return Cells.Values;
+    }
+
+    public IEnumerable<Cell> GetNeighborsOf(Coords coords, int range = 1)
+    {
+        var neighbors = new List<Cell>();
+        for (int dx = -range; dx <= range; dx++)
+        {
+            for (int dy = -range; dy <= range; dy++)
+            {
+                if (dx == 0 && dy == 0) continue;
+                var neighborCoords = new Coords(coords.X + dx, coords.Y + dy);
+                if (isInBounds(neighborCoords))
+                {
+                    neighbors.Add(GetCellAt(neighborCoords));
+                }
+            }
+        }
+        return neighbors;
+    }
+
     private bool isInBounds(Coords coords)
     {
         return coords.X >= 0 && coords.X < Dimensions.Width &&
