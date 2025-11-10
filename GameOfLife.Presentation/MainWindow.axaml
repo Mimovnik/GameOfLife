@@ -18,6 +18,11 @@
                     Orientation="Horizontal" 
                     Margin="10"
                     Spacing="10">
+            <Button Content="{Binding StartButtonText}" 
+                    Command="{Binding ToggleStartCommand}"
+                    Padding="15,8"
+                    FontSize="14"
+                    MinWidth="80"/>
             <Button Content="Next Generation" 
                     Command="{Binding NextGenerationCommand}"
                     Padding="15,8"
