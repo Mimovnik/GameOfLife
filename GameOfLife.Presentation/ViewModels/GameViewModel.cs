@@ -10,6 +10,8 @@ public partial class GameViewModel : ObservableObject
 {
     private readonly Game _game;
     private Timer? _timer;
+    private Board? _previousBoard;
+    private Board? _secondPreviousBoard;
 
     [ObservableProperty]
     private BoardViewModel _boardViewModel;
@@ -48,9 +50,32 @@ public partial class GameViewModel : ObservableObject
     [RelayCommand]
     private void NextGeneration()
     {
+        _secondPreviousBoard = _previousBoard;
+        _previousBoard = _game.Board;
+        
         _game.NextGeneration();
         BoardViewModel.UpdateFromBoard(_game.Board);
         Generation++;
+        
+        CheckForStableState();
+    }
+
+    private void CheckForStableState()
+    {
+        if (_previousBoard != null && _game.Board.Equals(_previousBoard))
+        {
+            if (IsRunning)
+            {
+                Stop();
+            }
+        }
+        else if (_secondPreviousBoard != null && _game.Board.Equals(_secondPreviousBoard))
+        {
+            if (IsRunning)
+            {
+                Stop();
+            }
+        }
     }
 
     [RelayCommand]
