@@ -9,6 +9,7 @@
              x:DataType="vm:BoardViewModel">
     <UserControl.Resources>
         <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
+        <converters:CellCharacterConverter x:Key="CellCharacterConverter"/>
     </UserControl.Resources>
     
     <ScrollViewer HorizontalScrollBarVisibility="Auto" 
@@ -29,7 +30,13 @@
                         <Border Width="10"
                                 Height="10"
                                 Background="{Binding IsAlive, Converter={StaticResource BoolToColorConverter}}"
-                                PointerPressed="Cell_PointerPressed"/>
+                                PointerPressed="Cell_PointerPressed">
+                            <TextBlock Text="{Binding IsAlive, Converter={StaticResource CellCharacterConverter}}"
+                                       FontSize="6"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Foreground="White"/>
+                        </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

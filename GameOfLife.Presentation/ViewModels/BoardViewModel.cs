@@ -23,6 +23,23 @@ public partial class BoardViewModel : ObservableObject
         _cells = new ObservableCollection<CellViewModel>();
         
         PopulateCells(board);
+        
+        // Subscribe to settings changes to refresh the board
+        AppSettingsService.SettingsChanged += OnSettingsChanged;
+    }
+
+    private void OnSettingsChanged()
+    {
+        RefreshAllCells();
+    }
+
+    public void RefreshAllCells()
+    {
+        // Force all cells to notify property changed to update their appearance
+        foreach (var cell in Cells)
+        {
+            cell.RefreshAppearance();
+        }
     }
 
     private void PopulateCells(Board board)

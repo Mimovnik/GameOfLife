@@ -1,29 +1,19 @@
 using System;
 using System.Globalization;
 using Avalonia.Data.Converters;
-using Avalonia.Media;
 
 namespace GameOfLife.Presentation.Converters;
 
-public class BoolToColorConverter : IValueConverter
+public class CellCharacterConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is bool isAlive)
         {
             var settings = AppSettingsService.Current;
-            var colorHex = isAlive ? settings.AliveCellColor : settings.DeadCellColor;
-            
-            try
-            {
-                return new SolidColorBrush(Color.Parse(colorHex));
-            }
-            catch
-            {
-                return isAlive ? Brushes.Green : Brushes.Black;
-            }
+            return isAlive ? settings.AliveCellCharacter : settings.DeadCellCharacter;
         }
-        return Brushes.Black;
+        return string.Empty;
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

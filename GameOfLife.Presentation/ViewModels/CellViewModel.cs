@@ -40,4 +40,9 @@ public partial class CellViewModel : ObservableObject
         _cell = cell;
         IsAlive = cell.IsAlive;
     }
+
+    public void RefreshAppearance()
+    {
+        OnPropertyChanged(nameof(IsAlive));
+    }
 }

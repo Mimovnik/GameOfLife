@@ -14,13 +14,26 @@ public partial class MainWindow : Window
 {
     private bool _isMenuOpen = false;
     private bool _isSavesListVisible = false;
-    private readonly FileGameRepository _repository;
+    private FileGameRepository _repository;
+    private readonly SettingsRepository _settingsRepository;
+    private AppSettings _currentSettings;
 
     public MainWindow()
     {
         InitializeComponent();
         DataContext = new GameViewModel();
-        _repository = new FileGameRepository();
+        _settingsRepository = new SettingsRepository();
+        _currentSettings = new AppSettings();
+        _repository = new FileGameRepository(_currentSettings.SavePath);
+        
+        LoadSettingsAsync();
+    }
+
+    private async void LoadSettingsAsync()
+    {
+        _currentSettings = await _settingsRepository.LoadSettingsAsync();
+        _repository = new FileGameRepository(_currentSettings.SavePath);
+        AppSettingsService.UpdateSettings(_currentSettings);
     }
 
     private void MenuButton_Click(object? sender, RoutedEventArgs e)
@@ -250,6 +263,24 @@ public partial class MainWindow : Window
     private void Exit_Click(object? sender, RoutedEventArgs e)
     {
         Close();
+    }
+
+    private void Settings_Click(object? sender, RoutedEventArgs e)
+    {
+        var dialog = new SettingsDialog(_currentSettings);
+        
+        dialog.Closed += async (s, args) =>
+        {
+            if (dialog.Confirmed)
+            {
+                _currentSettings = dialog.Settings;
+                await _settingsRepository.SaveSettingsAsync(_currentSettings);
+                _repository = new FileGameRepository(_currentSettings.SavePath);
+                AppSettingsService.UpdateSettings(_currentSettings);
+            }
+        };
+        
+        dialog.Show();
     }
 
     private static MainWindow CreateNewGameWindow(int width, int height, int[] birthConditions, int[] survivalConditions)

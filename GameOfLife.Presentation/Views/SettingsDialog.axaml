@@ -1,0 +1,185 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="500"
+        x:Class="GameOfLife.Presentation.Views.SettingsDialog"
+        Title="Settings"
+        Width="500"
+        Height="550"
+        WindowStartupLocation="CenterOwner"
+        CanResize="false">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0"
+                   Text="Settings"
+                   FontSize="20"
+                   FontWeight="Bold"/>
+        
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="15">
+                <!-- Save Path -->
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Save Path"
+                               FontSize="14"
+                               FontWeight="SemiBold"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0"
+                                 x:Name="SavePathInput"
+                                 Watermark="Path to save directory..."
+                                 FontSize="13"/>
+                        <Button Grid.Column="2"
+                                Content="Browse..."
+                                Padding="10,8"
+                                Click="BrowseSavePath_Click"/>
+                    </Grid>
+                    <TextBlock Text="Directory where game saves are stored"
+                               FontSize="11"
+                               Foreground="Gray"
+                               FontStyle="Italic"/>
+                </StackPanel>
+                
+                <!-- Dead Cell Color -->
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Dead Cell Color"
+                               FontSize="14"
+                               FontWeight="SemiBold"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="40"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0"
+                                 x:Name="DeadCellColorInput"
+                                 Watermark="#1E1E1E"
+                                 FontSize="13"/>
+                        <Button Grid.Column="2"
+                                x:Name="DeadCellColorButton"
+                                Width="40"
+                                Height="32"
+                                Background="#1E1E1E"
+                                Click="PickDeadCellColor_Click"
+                                ToolTip.Tip="Pick color"/>
+                    </Grid>
+                    <TextBlock Text="Hex color code (e.g., #1E1E1E)"
+                               FontSize="11"
+                               Foreground="Gray"
+                               FontStyle="Italic"/>
+                </StackPanel>
+                
+                <!-- Alive Cell Color -->
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Alive Cell Color"
+                               FontSize="14"
+                               FontWeight="SemiBold"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="40"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0"
+                                 x:Name="AliveCellColorInput"
+                                 Watermark="#4CAF50"
+                                 FontSize="13"/>
+                        <Button Grid.Column="2"
+                                x:Name="AliveCellColorButton"
+                                Width="40"
+                                Height="32"
+                                Background="#4CAF50"
+                                Click="PickAliveCellColor_Click"
+                                ToolTip.Tip="Pick color"/>
+                    </Grid>
+                    <TextBlock Text="Hex color code (e.g., #4CAF50)"
+                               FontSize="11"
+                               Foreground="Gray"
+                               FontStyle="Italic"/>
+                </StackPanel>
+                
+                <!-- Dead Cell Character -->
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Dead Cell Character"
+                               FontSize="14"
+                               FontWeight="SemiBold"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0"
+                                 x:Name="DeadCellCharacterInput"
+                                 Watermark="Empty or emoji/letter"
+                                 FontSize="13"
+                                 MaxLength="2"/>
+                        <Button Grid.Column="2"
+                                Content="😊"
+                                Padding="10,8"
+                                Click="PickDeadCellEmoji_Click"
+                                ToolTip.Tip="Pick emoji"/>
+                    </Grid>
+                    <TextBlock Text="Optional character to display in dead cells (leave empty for none)"
+                               FontSize="11"
+                               Foreground="Gray"
+                               FontStyle="Italic"/>
+                </StackPanel>
+                
+                <!-- Alive Cell Character -->
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Alive Cell Character"
+                               FontSize="14"
+                               FontWeight="SemiBold"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0"
+                                 x:Name="AliveCellCharacterInput"
+                                 Watermark="Empty or emoji/letter"
+                                 FontSize="13"
+                                 MaxLength="2"/>
+                        <Button Grid.Column="2"
+                                Content="😊"
+                                Padding="10,8"
+                                Click="PickAliveCellEmoji_Click"
+                                ToolTip.Tip="Pick emoji"/>
+                    </Grid>
+                    <TextBlock Text="Optional character to display in alive cells (leave empty for none)"
+                               FontSize="11"
+                               Foreground="Gray"
+                               FontStyle="Italic"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+        
+        <StackPanel Grid.Row="4" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right"
+                    Spacing="10">
+            <Button Content="Cancel"
+                    Width="100"
+                    Padding="10,8"
+                    Click="Cancel_Click"/>
+            <Button Content="Save"
+                    Width="100"
+                    Padding="10,8"
+                    Click="Save_Click"
+                    IsDefault="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

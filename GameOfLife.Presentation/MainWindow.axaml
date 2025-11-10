@@ -241,16 +241,26 @@
                         </Grid>
                     </Border>
                     
-                    <Button Grid.Row="2"
-                            Content="Exit"
-                            Click="Exit_Click"
-                            Padding="20,12"
-                            FontSize="14"
-                            HorizontalAlignment="Stretch"
-                            HorizontalContentAlignment="Left"
-                            Margin="10,0,20,20"
-                            Background="#D32F2F"
-                            Foreground="White"/>
+                    <StackPanel Grid.Row="2" Spacing="5">
+                        <Button Content="Settings"
+                                Click="Settings_Click"
+                                Padding="20,12"
+                                FontSize="14"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Margin="10,0,10,0"
+                                Background="#3C3C3C"
+                                Foreground="White"/>
+                        <Button Content="Exit"
+                                Click="Exit_Click"
+                                Padding="20,12"
+                                FontSize="14"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Margin="10,0,10,20"
+                                Background="#D32F2F"
+                                Foreground="White"/>
+                    </StackPanel>
                 </Grid>
             </Border>
         </Grid>
