@@ -1,47 +1,55 @@
+using System.Collections;
+
 namespace GameOfLife.Domain;
 
 public class Board
 {
     public BoardDimensions Dimensions { get; }
 
-    public Cell[,] Cells { get; }
+    private Dictionary<Coords, Cell> Cells { get; }
 
     public Board(BoardDimensions dimensions)
     {
         Dimensions = dimensions;
-        Cells = new Cell[dimensions.Width, dimensions.Height];
+        Cells = new Dictionary<Coords, Cell>();
         for (int x = 0; x < dimensions.Width; x++)
         {
             for (int y = 0; y < dimensions.Height; y++)
             {
-                Cells[x, y] = new Cell(isAlive: false);
+                Cells[new Coords(x, y)] = new Cell(isAlive: false, new Coords(x, y));
             }
         }
     }
 
-    public IEnumerable<Cell> GetCellsRowByRow()
+    public Cell GetCellAt(Coords coords)
     {
-        for (int y = 0; y < Dimensions.Height; y++)
+        if (!isInBounds(coords))
         {
-            for (int x = 0; x < Dimensions.Width; x++)
-            {
-                yield return Cells[x, y];
-            }
+            throw new ArgumentOutOfRangeException(nameof(coords), "Coordinates are out of board bounds.");
         }
+        return Cells[coords];
     }
 
-    public Cell ChangeCellStateAt(Coords coords)
+    public void SetCellStateAt(Coords coords, bool isAlive)
     {
-        var cell = Cells[coords.X, coords.Y];
-        if (cell.IsAlive)
+        if (!isInBounds(coords))
         {
-            cell.SetDead();
+            throw new ArgumentOutOfRangeException(nameof(coords), "Coordinates are out of board bounds.");
         }
-        else
+        var cell = Cells[coords];
+        if (isAlive)
         {
             cell.SetAlive();
         }
+        else
+        {
+            cell.SetDead();
+        }
+    }
 
-        return cell;
+    private bool isInBounds(Coords coords)
+    {
+        return coords.X >= 0 && coords.X < Dimensions.Width &&
+               coords.Y >= 0 && coords.Y < Dimensions.Height;
     }
 }
