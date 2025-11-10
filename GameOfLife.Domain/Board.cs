@@ -70,6 +70,23 @@ public class Board : IEquatable<Board>
         return neighbors;
     }
 
+    public void Wipe()
+    {
+        foreach (var cell in Cells.Values)
+        {
+            cell.IsAlive = false;
+        }
+    }
+
+    public void Randomize()
+    {
+        var random = new Random();
+        foreach (var cell in Cells.Values)
+        {
+            cell.IsAlive = random.Next(0, 2) == 1;
+        }
+    }
+
     private bool isInBounds(Coords coords)
     {
         return coords.X >= 0 && coords.X < Dimensions.Width &&

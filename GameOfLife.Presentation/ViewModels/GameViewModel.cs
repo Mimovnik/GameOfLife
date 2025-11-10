@@ -141,4 +141,18 @@ public partial class GameViewModel : ObservableObject
         _timer?.Dispose();
         _timer = null;
     }
+
+    [RelayCommand]
+    private void Wipe()
+    {
+        _game.Board.Wipe();
+        BoardViewModel.UpdateFromBoard(_game.Board);
+    }
+
+    [RelayCommand]
+    private void Randomize()
+    {
+        _game.Board.Randomize();
+        BoardViewModel.UpdateFromBoard(_game.Board);
+    }
 }

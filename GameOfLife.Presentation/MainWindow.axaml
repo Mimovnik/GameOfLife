@@ -60,6 +60,14 @@
                             Command="{Binding NextGenerationCommand}"
                             Padding="15,10"
                             FontSize="14"/>
+                    <Button Content="Wipe" 
+                            Command="{Binding WipeCommand}"
+                            Padding="15,10"
+                            FontSize="14"/>
+                    <Button Content="Randomize" 
+                            Command="{Binding RandomizeCommand}"
+                            Padding="15,10"
+                            FontSize="14"/>
                     
                     <TextBlock Text="Speed:" 
                                VerticalAlignment="Center"
