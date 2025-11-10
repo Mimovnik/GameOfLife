@@ -14,20 +14,24 @@ public partial class MainWindow : Window
         DataContext = new GameViewModel();
     }
 
-    private async void NewGame_Click(object? sender, RoutedEventArgs e)
+    private void NewGame_Click(object? sender, RoutedEventArgs e)
     {
         var dialog = new NewGameDialog();
-        await dialog.ShowDialog(this);
-
-        if (dialog.Confirmed)
+        
+        dialog.Closed += (s, args) =>
         {
-            var newWindow = CreateNewGameWindow(
-                dialog.BoardWidth, 
-                dialog.BoardHeight, 
-                dialog.BirthConditions, 
-                dialog.SurvivalConditions);
-            newWindow.Show();
-        }
+            if (dialog.Confirmed)
+            {
+                var newWindow = CreateNewGameWindow(
+                    dialog.BoardWidth, 
+                    dialog.BoardHeight, 
+                    dialog.BirthConditions, 
+                    dialog.SurvivalConditions);
+                newWindow.Show();
+            }
+        };
+        
+        dialog.Show();
     }
 
     private static MainWindow CreateNewGameWindow(int width, int height, int[] birthConditions, int[] survivalConditions)
