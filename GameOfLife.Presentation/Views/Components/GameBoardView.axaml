@@ -13,33 +13,41 @@
     </UserControl.Resources>
     
     <ScrollViewer HorizontalScrollBarVisibility="Auto" 
-                  VerticalScrollBarVisibility="Auto">
-        <Viewbox Stretch="Uniform">
-            <ItemsControl ItemsSource="{Binding Cells}"
-                          PointerMoved="Grid_PointerMoved"
-                          x:Name="GridControl">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="{Binding Columns}"
-                                     Rows="{Binding Rows}"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+                  VerticalScrollBarVisibility="Auto"
+                  x:Name="ScrollViewer"
+                  PointerWheelChanged="ScrollViewer_PointerWheelChanged">
+        <Border x:Name="ZoomBorder">
+            <Border.RenderTransform>
+                <ScaleTransform ScaleX="1" ScaleY="1"/>
+            </Border.RenderTransform>
+            
+            <Viewbox Stretch="Uniform">
+                <ItemsControl ItemsSource="{Binding Cells}"
+                              PointerMoved="Grid_PointerMoved"
+                              x:Name="GridControl">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="{Binding Columns}"
+                                         Rows="{Binding Rows}"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="vm:CellViewModel">
-                        <Border Width="10"
-                                Height="10"
-                                Background="{Binding IsAlive, Converter={StaticResource BoolToColorConverter}}"
-                                PointerPressed="Cell_PointerPressed">
-                            <TextBlock Text="{Binding IsAlive, Converter={StaticResource CellCharacterConverter}}"
-                                       FontSize="6"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Foreground="White"/>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Viewbox>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="vm:CellViewModel">
+                            <Border Width="10"
+                                    Height="10"
+                                    Background="{Binding IsAlive, Converter={StaticResource BoolToColorConverter}}"
+                                    PointerPressed="Cell_PointerPressed">
+                                <TextBlock Text="{Binding IsAlive, Converter={StaticResource CellCharacterConverter}}"
+                                           FontSize="6"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Foreground="White"/>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Viewbox>
+        </Border>
     </ScrollViewer>
 </UserControl>
