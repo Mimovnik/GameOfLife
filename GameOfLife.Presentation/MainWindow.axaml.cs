@@ -63,6 +63,11 @@ public partial class MainWindow : Window
         dialog.Show();
     }
 
+    private void Exit_Click(object? sender, RoutedEventArgs e)
+    {
+        Close();
+    }
+
     private static MainWindow CreateNewGameWindow(int width, int height, int[] birthConditions, int[] survivalConditions)
     {
         var dimensions = BoardDimensions.Create(width, height);
