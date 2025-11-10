@@ -25,10 +25,14 @@ public partial class CellViewModel : ObservableObject
         _cell.IsAlive = value;
     }
 
-    [RelayCommand]
-    private void ToggleState()
+    public void SetAlive()
     {
-        IsAlive = !IsAlive;
+        IsAlive = true;
+    }
+
+    public void SetDead()
+    {
+        IsAlive = false;
     }
 
     public void UpdateFromCell(Cell cell)

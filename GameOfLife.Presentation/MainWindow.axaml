@@ -3,12 +3,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:GameOfLife.Presentation.ViewModels"
+        xmlns:converters="clr-namespace:GameOfLife.Presentation.Converters"
         mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="1000"
         x:Class="GameOfLife.Presentation.MainWindow"
         x:DataType="vm:GameViewModel"
         Title="Game of Life - 100x100 Grid"
         Width="1000"
         Height="1000">
+    <Window.Resources>
+        <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
+    </Window.Resources>
     <Design.DataContext>
         <vm:GameViewModel/>
     </Design.DataContext>
@@ -56,7 +60,9 @@
         <ScrollViewer HorizontalScrollBarVisibility="Auto" 
                       VerticalScrollBarVisibility="Auto">
             <Viewbox Stretch="Uniform">
-                <ItemsControl ItemsSource="{Binding BoardViewModel.Cells}">
+                <ItemsControl ItemsSource="{Binding BoardViewModel.Cells}"
+                              PointerMoved="Grid_PointerMoved"
+                              x:Name="GridControl">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Columns="{Binding BoardViewModel.Columns}"
@@ -66,27 +72,10 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="vm:CellViewModel">
-                            <ToggleButton Margin="0"
-                                          Padding="0"
-                                          Width="10"
-                                          Height="10"
-                                          BorderBrush="#CCCCCC"
-                                          BorderThickness="0"
-                                          IsChecked="{Binding IsAlive, Mode=TwoWay}">
-                                <ToggleButton.Styles>
-                                    <Style Selector="ToggleButton">
-                                        <Setter Property="Background" Value="White"/>
-                                        <Setter Property="CornerRadius" Value="0"/>
-                                    </Style>
-                                    <Style Selector="ToggleButton:checked">
-                                        <Setter Property="Background" Value="Black"/>
-                                    </Style>
-                                    <Style Selector="ToggleButton:pointerover">
-                                        <Setter Property="BorderBrush" Value="#666666"/>
-                                        <Setter Property="BorderThickness" Value="1"/>
-                                    </Style>
-                                </ToggleButton.Styles>
-                            </ToggleButton>
+                            <Border Width="10"
+                                    Height="10"
+                                    Background="{Binding IsAlive, Converter={StaticResource BoolToColorConverter}}"
+                                    PointerPressed="Cell_PointerPressed"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
