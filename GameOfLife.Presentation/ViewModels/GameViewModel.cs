@@ -23,6 +23,9 @@ public partial class GameViewModel : ObservableObject
     [ObservableProperty]
     private int _speedMs = 100;
 
+    [ObservableProperty]
+    private int _generation = 0;
+
     public GameViewModel()
     {
         var dimensions = BoardDimensions.Create(100, 100);
@@ -47,6 +50,7 @@ public partial class GameViewModel : ObservableObject
     {
         _game.NextGeneration();
         BoardViewModel.UpdateFromBoard(_game.Board);
+        Generation++;
     }
 
     [RelayCommand]

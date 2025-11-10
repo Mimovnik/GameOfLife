@@ -32,6 +32,18 @@
                     Padding="15,8"
                     FontSize="14"/>
             
+            <TextBlock Text="Generation:" 
+                       VerticalAlignment="Center"
+                       Margin="20,0,5,0"
+                       FontSize="14"
+                       FontWeight="Bold"/>
+            
+            <TextBlock Text="{Binding Generation}" 
+                       VerticalAlignment="Center"
+                       FontSize="14"
+                       FontWeight="Bold"
+                       MinWidth="50"/>
+            
             <TextBlock Text="Speed (ms):" 
                        VerticalAlignment="Center"
                        Margin="20,0,5,0"
