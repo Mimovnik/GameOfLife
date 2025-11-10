@@ -21,16 +21,20 @@ public partial class MainWindow : Window
 
         if (dialog.Confirmed)
         {
-            var newWindow = CreateNewGameWindow(dialog.BoardWidth, dialog.BoardHeight);
+            var newWindow = CreateNewGameWindow(
+                dialog.BoardWidth, 
+                dialog.BoardHeight, 
+                dialog.BirthConditions, 
+                dialog.SurvivalConditions);
             newWindow.Show();
         }
     }
 
-    private static MainWindow CreateNewGameWindow(int width, int height)
+    private static MainWindow CreateNewGameWindow(int width, int height, int[] birthConditions, int[] survivalConditions)
     {
         var dimensions = BoardDimensions.Create(width, height);
         var board = new Board(dimensions);
-        var ruleSet = new RuleSet(birthConditions: new[] { 3 }, survivalConditions: new[] { 2, 3 });
+        var ruleSet = new RuleSet(birthConditions: birthConditions, survivalConditions: survivalConditions);
         var game = new Game(ruleSet, board);
         
         var window = new MainWindow

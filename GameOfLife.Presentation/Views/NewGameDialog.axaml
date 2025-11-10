@@ -2,15 +2,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="250"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="500"
         x:Class="GameOfLife.Presentation.Views.NewGameDialog"
         Title="New Game"
-        Width="400"
-        Height="250"
+        Width="500"
+        Height="500"
         WindowStartupLocation="CenterOwner"
         CanResize="false">
     <Grid Margin="20">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="20"/>
             <RowDefinition Height="Auto"/>
@@ -66,13 +68,110 @@
                           FormatString="0"/>
         </Grid>
         
-        <TextBlock Grid.Row="4"
-                   Text="Note: Larger boards may impact performance"
+        <Grid Grid.Row="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                       Text="Rules Configuration"
+                       FontSize="16"
+                       FontWeight="Bold"/>
+            
+            <!-- Birth Conditions -->
+            <StackPanel Grid.Row="2" Grid.Column="0" Spacing="8">
+                <TextBlock Text="Birth (B) - Neighbor counts for birth:"
+                           FontSize="13"
+                           FontWeight="SemiBold"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <NumericUpDown Grid.Row="0" Grid.Column="0"
+                                   x:Name="BirthInput"
+                                   Minimum="0"
+                                   Maximum="8"
+                                   Value="3"
+                                   FormatString="0"/>
+                    <Button Grid.Row="0" Grid.Column="2"
+                            Content="Add"
+                            Click="AddBirth_Click"
+                            Padding="15,5"/>
+                    
+                    <ListBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                             x:Name="BirthList"
+                             Height="120"
+                             SelectionMode="Single"/>
+                </Grid>
+                <Button Content="Remove Selected"
+                        Click="RemoveBirth_Click"
+                        HorizontalAlignment="Stretch"
+                        Padding="5"/>
+            </StackPanel>
+            
+            <!-- Survival Conditions -->
+            <StackPanel Grid.Row="2" Grid.Column="2" Spacing="8">
+                <TextBlock Text="Survival (S) - Neighbor counts for survival:"
+                           FontSize="13"
+                           FontWeight="SemiBold"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <NumericUpDown Grid.Row="0" Grid.Column="0"
+                                   x:Name="SurvivalInput"
+                                   Minimum="0"
+                                   Maximum="8"
+                                   Value="2"
+                                   FormatString="0"/>
+                    <Button Grid.Row="0" Grid.Column="2"
+                            Content="Add"
+                            Click="AddSurvival_Click"
+                            Padding="15,5"/>
+                    
+                    <ListBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                             x:Name="SurvivalList"
+                             Height="120"
+                             SelectionMode="Single"/>
+                </Grid>
+                <Button Content="Remove Selected"
+                        Click="RemoveSurvival_Click"
+                        HorizontalAlignment="Stretch"
+                        Padding="5"/>
+            </StackPanel>
+        </Grid>
+        
+        <TextBlock Grid.Row="6"
+                   Text="Note: Default is Conway's Life (B3/S23). Add neighbor counts (0-8) to each list."
                    FontSize="12"
                    FontStyle="Italic"
-                   Foreground="Gray"/>
+                   Foreground="Gray"
+                   TextWrapping="Wrap"/>
         
-        <StackPanel Grid.Row="6" 
+        <StackPanel Grid.Row="8" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right"
                     Spacing="10">
