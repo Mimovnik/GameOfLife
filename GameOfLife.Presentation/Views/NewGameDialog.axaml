@@ -1,0 +1,90 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="250"
+        x:Class="GameOfLife.Presentation.Views.NewGameDialog"
+        Title="New Game"
+        Width="400"
+        Height="250"
+        WindowStartupLocation="CenterOwner"
+        CanResize="false">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Spacing="10">
+            <TextBlock Text="Create New Game" 
+                       FontSize="18" 
+                       FontWeight="Bold"/>
+            <TextBlock Text="Enter the dimensions for the new board (Max: 500x500):"
+                       FontSize="14"
+                       TextWrapping="Wrap"/>
+        </StackPanel>
+        
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <TextBlock Grid.Row="0" Grid.Column="0"
+                       Text="Width:"
+                       VerticalAlignment="Center"
+                       FontSize="14"/>
+            <NumericUpDown Grid.Row="0" Grid.Column="2"
+                          x:Name="WidthInput"
+                          Value="100"
+                          Minimum="10"
+                          Maximum="500"
+                          Increment="10"
+                          FormatString="0"/>
+            
+            <TextBlock Grid.Row="2" Grid.Column="0"
+                       Text="Height:"
+                       VerticalAlignment="Center"
+                       FontSize="14"/>
+            <NumericUpDown Grid.Row="2" Grid.Column="2"
+                          x:Name="HeightInput"
+                          Value="100"
+                          Minimum="10"
+                          Maximum="500"
+                          Increment="10"
+                          FormatString="0"/>
+        </Grid>
+        
+        <TextBlock Grid.Row="4"
+                   Text="Note: Larger boards may impact performance"
+                   FontSize="12"
+                   FontStyle="Italic"
+                   Foreground="Gray"/>
+        
+        <StackPanel Grid.Row="6" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right"
+                    Spacing="10">
+            <Button Content="Cancel"
+                    Width="100"
+                    Padding="10,8"
+                    Click="Cancel_Click"/>
+            <Button Content="Create"
+                    Width="100"
+                    Padding="10,8"
+                    Click="Create_Click"
+                    IsDefault="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

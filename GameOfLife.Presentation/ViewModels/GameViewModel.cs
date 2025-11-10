@@ -52,6 +52,13 @@ public partial class GameViewModel : ObservableObject
         _boardHistory = new ConcurrentQueue<Board>();
     }
 
+    public GameViewModel(Game game)
+    {
+        _game = game;
+        _boardViewModel = new BoardViewModel(_game.Board);
+        _boardHistory = new ConcurrentQueue<Board>();
+    }
+
     partial void OnSpeedMsChanged(int value)
     {
         if (IsRunning)

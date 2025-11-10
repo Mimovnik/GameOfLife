@@ -19,6 +19,11 @@
                     Orientation="Horizontal" 
                     Margin="10"
                     Spacing="10">
+            <Button Content="New Game"
+                    Click="NewGame_Click"
+                    Padding="15,8"
+                    FontSize="14"
+                    MinWidth="100"/>
             <views:GameControlsPanel DataContext="{Binding}"/>
             <views:GameStatsPanel DataContext="{Binding}"/>
         </StackPanel>
