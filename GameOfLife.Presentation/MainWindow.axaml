@@ -32,17 +32,39 @@
                     Padding="15,8"
                     FontSize="14"/>
             
-            <TextBlock Text="Generation:" 
-                       VerticalAlignment="Center"
-                       Margin="20,0,5,0"
-                       FontSize="14"
-                       FontWeight="Bold"/>
-            
-            <TextBlock Text="{Binding Generation}" 
-                       VerticalAlignment="Center"
-                       FontSize="14"
-                       FontWeight="Bold"
-                       MinWidth="50"/>
+            <StackPanel Orientation="Vertical" 
+                        Margin="20,0,0,0"
+                        Spacing="2">
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="Generation:" 
+                               VerticalAlignment="Center"
+                               FontSize="11"/>
+                    <TextBlock Text="{Binding Generation}" 
+                               VerticalAlignment="Center"
+                               FontSize="11"
+                               FontWeight="Bold"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="Births:" 
+                               VerticalAlignment="Center"
+                               FontSize="11"/>
+                    <TextBlock Text="{Binding BirthCount}" 
+                               VerticalAlignment="Center"
+                               FontSize="11"
+                               FontWeight="Bold"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="Deaths:" 
+                               VerticalAlignment="Center"
+                               FontSize="11"/>
+                    <TextBlock Text="{Binding DeathCount}" 
+                               VerticalAlignment="Center"
+                               FontSize="11"
+                               FontWeight="Bold"/>
+                </StackPanel>
+            </StackPanel>
             
             <TextBlock Text="Speed (ms):" 
                        VerticalAlignment="Center"

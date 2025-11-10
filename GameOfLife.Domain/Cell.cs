@@ -2,7 +2,32 @@ namespace GameOfLife.Domain;
 
 public class Cell : IEquatable<Cell>
 {
-    public bool IsAlive { get; set; }
+    private bool _isAlive;
+    
+    public event Action OnDeath = delegate { };
+    public event Action OnBirth = delegate { };
+    
+    public bool IsAlive
+    {
+        get => _isAlive;
+        set
+        {
+            if (_isAlive == value) return;
+            
+            var wasAlive = _isAlive;
+            _isAlive = value;
+            
+            if (wasAlive && !_isAlive)
+            {
+                OnDeath.Invoke();
+            }
+            else if (!wasAlive && _isAlive)
+            {
+                OnBirth.Invoke();
+            }
+        }
+    }
+    
     public Coords Coords { get; }
 
     public Cell(bool isAlive, Coords coords)

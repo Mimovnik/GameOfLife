@@ -13,7 +13,7 @@ public class RuleSet
 
     public Board NextGeneration(Board currentBoard)
     {
-        var nextGeneration = new Board(currentBoard.Dimensions);
+        var nextGeneration = currentBoard.Clone();
 
         foreach (Cell cell in currentBoard.GetAllCells())
         {

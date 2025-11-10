@@ -27,13 +27,19 @@ public partial class GameViewModel : ObservableObject
     private int _speedMs = 100;
 
     [ObservableProperty]
-    private int _generation = 0;
-
-    [ObservableProperty]
     private bool _autoPauseOnStableState = true;
 
     [ObservableProperty]
     private int _historyDepth = 10;
+
+    [ObservableProperty]
+    private int _generation;
+
+    [ObservableProperty]
+    private int _birthCount;
+
+    [ObservableProperty]
+    private int _deathCount;
 
     public GameViewModel()
     {
@@ -67,7 +73,9 @@ public partial class GameViewModel : ObservableObject
         
         _game.NextGeneration();
         BoardViewModel.UpdateFromBoard(_game.Board);
-        Generation++;
+        Generation = _game.Stats.GenerationCount;
+        BirthCount = _game.Stats.TotalBirthCount;
+        DeathCount = _game.Stats.TotalDeathCount;
         
         if (AutoPauseOnStableState)
         {
