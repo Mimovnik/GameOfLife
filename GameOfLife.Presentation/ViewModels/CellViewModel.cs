@@ -6,7 +6,7 @@ namespace GameOfLife.Presentation.ViewModels;
 
 public partial class CellViewModel : ObservableObject
 {
-    private readonly Cell _cell;
+    private Cell _cell;
 
     [ObservableProperty]
     private bool _isAlive;
@@ -29,5 +29,11 @@ public partial class CellViewModel : ObservableObject
     private void ToggleState()
     {
         IsAlive = !IsAlive;
+    }
+
+    public void UpdateFromCell(Cell cell)
+    {
+        _cell = cell;
+        IsAlive = cell.IsAlive;
     }
 }

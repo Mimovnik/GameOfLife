@@ -6,8 +6,6 @@ namespace GameOfLife.Presentation.ViewModels;
 
 public partial class BoardViewModel : ObservableObject
 {
-    private readonly Board _board;
-
     [ObservableProperty]
     private ObservableCollection<CellViewModel> _cells;
 
@@ -17,23 +15,39 @@ public partial class BoardViewModel : ObservableObject
     [ObservableProperty]
     private int _rows;
 
-    public BoardViewModel()
+    public BoardViewModel(Board board)
     {
-        var dimensions = BoardDimensions.Create(100, 100);
-        _board = new Board(dimensions);
-        
-        _columns = dimensions.Width;
-        _rows = dimensions.Height;
+        _columns = board.Dimensions.Width;
+        _rows = board.Dimensions.Height;
         
         _cells = new ObservableCollection<CellViewModel>();
         
-        // Populate cells in row-major order for proper grid display
-        for (int y = 0; y < dimensions.Height; y++)
+        PopulateCells(board);
+    }
+
+    private void PopulateCells(Board board)
+    {
+        Cells.Clear();
+        
+        for (int y = 0; y < board.Dimensions.Height; y++)
         {
-            for (int x = 0; x < dimensions.Width; x++)
+            for (int x = 0; x < board.Dimensions.Width; x++)
             {
-                var cell = _board.GetCellAt(new Coords(x, y));
-                _cells.Add(new CellViewModel(cell));
+                var cell = board.GetCellAt(new Coords(x, y));
+                Cells.Add(new CellViewModel(cell));
+            }
+        }
+    }
+
+    public void UpdateFromBoard(Board board)
+    {
+        for (int y = 0; y < board.Dimensions.Height; y++)
+        {
+            for (int x = 0; x < board.Dimensions.Width; x++)
+            {
+                var index = y * board.Dimensions.Width + x;
+                var cell = board.GetCellAt(new Coords(x, y));
+                Cells[index].UpdateFromCell(cell);
             }
         }
     }
