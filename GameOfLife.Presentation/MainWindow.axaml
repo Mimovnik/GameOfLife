@@ -157,6 +157,7 @@
                 </Border.Styles>
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
@@ -171,9 +172,47 @@
                                 Margin="10,0"
                                 Background="#3C3C3C"
                                 Foreground="White"/>
+                        <Button Content="Save Game"
+                                Click="SaveGame_Click"
+                                Padding="20,12"
+                                FontSize="14"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Margin="10,0"
+                                Background="#3C3C3C"
+                                Foreground="White"/>
+                        <Button Content="Load Game"
+                                x:Name="LoadGameButton"
+                                Click="LoadGame_Click"
+                                Padding="20,12"
+                                FontSize="14"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Margin="10,0"
+                                Background="#3C3C3C"
+                                Foreground="White"/>
                     </StackPanel>
                     
-                    <Button Grid.Row="1"
+                    <Border Grid.Row="1"
+                            x:Name="SavesListPanel"
+                            IsVisible="False"
+                            Background="#1E1E1E"
+                            Margin="10,10,10,0"
+                            CornerRadius="4">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel x:Name="SavesListContainer" Spacing="2" Margin="5">
+                                <TextBlock x:Name="NoSavesText"
+                                           Text="No saves yet. Click Save Game to persist the board."
+                                           Foreground="#999999"
+                                           FontSize="12"
+                                           TextWrapping="Wrap"
+                                           Margin="10"
+                                           TextAlignment="Center"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Border>
+                    
+                    <Button Grid.Row="2"
                             Content="Exit"
                             Click="Exit_Click"
                             Padding="20,12"

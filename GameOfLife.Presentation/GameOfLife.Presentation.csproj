@@ -23,5 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GameOfLife.Domain\GameOfLife.Domain.csproj" />
+    <ProjectReference Include="..\GameOfLife.Infra\GameOfLife.Infra.csproj" />
   </ItemGroup>
 </Project>

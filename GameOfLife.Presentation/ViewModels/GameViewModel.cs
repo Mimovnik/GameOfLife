@@ -14,6 +14,8 @@ public partial class GameViewModel : ObservableObject
     private Timer? _timer;
     private readonly ConcurrentQueue<Board> _boardHistory;
 
+    public Game Game => _game;
+
     [ObservableProperty]
     private BoardViewModel _boardViewModel;
 
@@ -57,6 +59,11 @@ public partial class GameViewModel : ObservableObject
         _game = game;
         _boardViewModel = new BoardViewModel(_game.Board);
         _boardHistory = new ConcurrentQueue<Board>();
+        
+        // Initialize stats from the loaded game
+        Generation = _game.Stats.GenerationCount;
+        BirthCount = _game.Stats.TotalBirthCount;
+        DeathCount = _game.Stats.TotalDeathCount;
     }
 
     partial void OnSpeedMsChanged(int value)

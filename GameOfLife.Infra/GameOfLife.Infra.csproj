@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GameOfLife.Domain\GameOfLife.Domain.csproj" />
-    <ProjectReference Include="..\GameOfLife.App\GameOfLife.App.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

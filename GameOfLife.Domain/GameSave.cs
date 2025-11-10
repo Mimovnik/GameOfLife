@@ -10,7 +10,7 @@ public class GameSave
     public int BoardHeight { get; set; }
     public int[] BirthConditions { get; set; }
     public int[] SurvivalConditions { get; set; }
-    public bool[,] CellStates { get; set; }
+    public bool[] CellStates { get; set; }
 
     public GameSave(
         string name,
@@ -21,7 +21,7 @@ public class GameSave
         int boardHeight,
         int[] birthConditions,
         int[] survivalConditions,
-        bool[,] cellStates)
+        bool[] cellStates)
     {
         Name = name;
         GenerationCount = generationCount;

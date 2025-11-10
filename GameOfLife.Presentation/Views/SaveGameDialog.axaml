@@ -1,0 +1,71 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="200"
+        x:Class="GameOfLife.Presentation.Views.SaveGameDialog"
+        Title="Save Game"
+        Width="400"
+        Height="200"
+        WindowStartupLocation="CenterOwner"
+        CanResize="false">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Spacing="10">
+            <TextBlock Text="Save Game" 
+                       FontSize="18" 
+                       FontWeight="Bold"/>
+            <TextBlock Text="Enter a name for this save:"
+                       FontSize="14"
+                       TextWrapping="Wrap"/>
+        </StackPanel>
+        
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="15"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Column="0"
+                       Text="Save Name:"
+                       VerticalAlignment="Center"
+                       FontSize="14"/>
+            <TextBox Grid.Column="2"
+                     x:Name="SaveNameInput"
+                     Watermark="Enter save name..."
+                     VerticalAlignment="Center"
+                     FontSize="14"/>
+        </Grid>
+        
+        <TextBlock Grid.Row="4"
+                   Text="This will overwrite any existing save with the same name."
+                   FontSize="12"
+                   FontStyle="Italic"
+                   Foreground="Gray"/>
+        
+        <StackPanel Grid.Row="6" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right"
+                    Spacing="10">
+            <Button Content="Cancel"
+                    Width="100"
+                    Padding="10,8"
+                    Click="Cancel_Click"/>
+            <Button Content="Save"
+                    Width="100"
+                    Padding="10,8"
+                    Click="Save_Click"
+                    IsDefault="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

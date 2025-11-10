@@ -28,11 +28,17 @@ public class Game
 
     public GameSave ToSave(string name)
     {
-        var cellStates = new bool[Board.Dimensions.Width, Board.Dimensions.Height];
+        var width = Board.Dimensions.Width;
+        var height = Board.Dimensions.Height;
+        var cellStates = new bool[width * height];
         
-        foreach (var cell in Board.GetAllCells())
+        for (int x = 0; x < width; x++)
         {
-            cellStates[cell.Coords.X, cell.Coords.Y] = cell.IsAlive;
+            for (int y = 0; y < height; y++)
+            {
+                var cell = Board.GetCellAt(new Coords(x, y));
+                cellStates[x * height + y] = cell.IsAlive;
+            }
         }
 
         return new GameSave(
@@ -40,8 +46,8 @@ public class Game
             Stats.GenerationCount,
             Stats.TotalBirthCount,
             Stats.TotalDeathCount,
-            Board.Dimensions.Width,
-            Board.Dimensions.Height,
+            width,
+            height,
             _ruleSet.BirthConditions,
             _ruleSet.SurvivalConditions,
             cellStates
@@ -58,7 +64,7 @@ public class Game
             for (int y = 0; y < save.BoardHeight; y++)
             {
                 var cell = board.GetCellAt(new Coords(x, y));
-                cell.IsAlive = save.CellStates[x, y];
+                cell.IsAlive = save.CellStates[x * save.BoardHeight + y];
             }
         }
 
