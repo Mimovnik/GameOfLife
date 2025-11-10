@@ -64,3 +64,52 @@ public class when_comparing_two_board_dimensions_with_same_values
     It should_consider_them_equal = () =>
         are_equal.ShouldBeTrue();
 }
+
+public class when_getting_all_cells_row_by_row
+{
+    static Board board = null!;
+    static List<Cell> cells = null!;
+
+    Establish context = () =>
+    {
+        var dims = BoardDimensions.Create(3, 2);
+        board = new Board(dims);
+        board.Cells[0, 0] = new Cell(isAlive: false);
+        board.Cells[1, 0] = new Cell(isAlive: true);
+        board.Cells[2, 0] = new Cell(isAlive: false);
+        board.Cells[0, 1] = new Cell(isAlive: true);
+        board.Cells[1, 1] = new Cell(isAlive: false);
+        board.Cells[2, 1] = new Cell(isAlive: true);
+    };
+
+    Because of = () =>
+        cells = board.GetCellsRowByRow().ToList();
+
+    It should_return_cells_in_row_order = () =>
+    {
+        cells[0].IsAlive.ShouldBeFalse();
+        cells[1].IsAlive.ShouldBeTrue();
+        cells[2].IsAlive.ShouldBeFalse();
+        cells[3].IsAlive.ShouldBeTrue();
+        cells[4].IsAlive.ShouldBeFalse();
+        cells[5].IsAlive.ShouldBeTrue();
+    };
+}
+
+public class when_toggling_a_cell
+{
+    static Board board;
+    static Cell result;
+
+    Establish context = () =>
+    {
+        var dims = BoardDimensions.Create(100, 100);
+        board = new Board(dims);
+        board.Cells[10, 10] = new Cell(isAlive: false);
+    };
+
+    Because of = () => result = board.ChangeCellStateAt(new Coords(10, 10));
+
+    It should_mark_cell_alive = () => result.IsAlive.ShouldBeTrue();
+}
+
