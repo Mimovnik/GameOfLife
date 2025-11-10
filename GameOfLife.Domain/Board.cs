@@ -2,7 +2,7 @@ using System.Collections;
 
 namespace GameOfLife.Domain;
 
-public class Board
+public class Board : IEquatable<Board>
 {
     public BoardDimensions Dimensions { get; }
 
@@ -57,5 +57,29 @@ public class Board
     {
         return coords.X >= 0 && coords.X < Dimensions.Width &&
                coords.Y >= 0 && coords.Y < Dimensions.Height;
+    }
+
+    public bool Equals(Board? other)
+    {
+        if (other is null) return false;
+        if (ReferenceEquals(this, other)) return true;
+
+        return Dimensions.Equals(other.Dimensions) &&
+               Cells.SequenceEqual(other.Cells);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return Equals(obj as Board);
+    }
+
+    public override int GetHashCode()
+    {
+        int hash = Dimensions.GetHashCode();
+        foreach (var cell in Cells.Values)
+        {
+            hash = HashCode.Combine(hash, cell.GetHashCode());
+        }
+        return hash;
     }
 }
