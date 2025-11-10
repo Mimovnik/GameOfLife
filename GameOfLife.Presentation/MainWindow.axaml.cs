@@ -58,13 +58,6 @@ public partial class MainWindow : Window
 
     private void NewGame_Click(object? sender, RoutedEventArgs e)
     {
-        if (MenuPanel != null && _isMenuOpen)
-        {
-            _isMenuOpen = false;
-            MenuPanel.Classes.Remove("open");
-            MenuPanel.Classes.Add("closed");
-        }
-        
         var dialog = new NewGameDialog();
         
         dialog.Closed += (s, args) =>
@@ -85,13 +78,6 @@ public partial class MainWindow : Window
 
     private void SaveGame_Click(object? sender, RoutedEventArgs e)
     {
-        if (MenuPanel != null && _isMenuOpen)
-        {
-            _isMenuOpen = false;
-            MenuPanel.Classes.Remove("open");
-            MenuPanel.Classes.Add("closed");
-        }
-
         var dialog = new SaveGameDialog();
         
         dialog.Closed += async (s, args) =>
@@ -102,6 +88,12 @@ public partial class MainWindow : Window
                 {
                     var save = viewModel.Game.ToSave(dialog.SaveName);
                     await _repository.SaveGameAsync(save);
+                    
+                    // Refresh the saves list if it's visible
+                    if (_isSavesListVisible)
+                    {
+                        await RefreshSavesList();
+                    }
                 }
             }
         };
