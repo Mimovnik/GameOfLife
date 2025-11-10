@@ -70,7 +70,7 @@ public partial class MainWindow : Window
         dialog.Show();
     }
 
-    private async void SaveGame_Click(object? sender, RoutedEventArgs e)
+    private void SaveGame_Click(object? sender, RoutedEventArgs e)
     {
         if (MenuPanel != null && _isMenuOpen)
         {
@@ -178,11 +178,11 @@ public partial class MainWindow : Window
                     Tag = saveName
                 };
                 
-                deleteButton.Click += async (s, args) =>
+                deleteButton.Click += (s, args) =>
                 {
                     if (s is Button btn && btn.Tag is string name)
                     {
-                        await DeleteSavedGame(name);
+                        DeleteSavedGame(name);
                     }
                 };
 
@@ -231,7 +231,7 @@ public partial class MainWindow : Window
         }
     }
 
-    private async Task DeleteSavedGame(string saveName)
+    private void DeleteSavedGame(string saveName)
     {
         var dialog = new DeleteSaveDialog(saveName);
         

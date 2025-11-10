@@ -7,11 +7,14 @@ public partial class DeleteSaveDialog : Window
 {
     public bool Confirmed { get; private set; }
 
-    public DeleteSaveDialog(string saveName)
+    public DeleteSaveDialog()
     {
         InitializeComponent();
         Confirmed = false;
-        
+    }
+
+    public DeleteSaveDialog(string saveName) : this()
+    {
         if (ConfirmationText != null)
         {
             ConfirmationText.Text = $"Are you sure you want to delete the save '{saveName}'? This action cannot be undone.";
