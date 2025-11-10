@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:GameOfLife.Presentation.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="50"
-             x:Class="GameOfLife.Presentation.Views.GameControlsPanel"
+             x:Class="GameOfLife.Presentation.Views.Components.GameControlsPanel"
              x:DataType="vm:GameViewModel">
     <StackPanel Orientation="Horizontal" Spacing="10">
         <Button Content="{Binding StartButtonText}" 

@@ -4,7 +4,7 @@ using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 
-namespace GameOfLife.Presentation.Views;
+namespace GameOfLife.Presentation.Views.Dialogs;
 
 public class RulePreset
 {

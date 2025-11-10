@@ -6,7 +6,7 @@ using Avalonia.Media;
 using GameOfLife.Domain;
 using GameOfLife.Infra;
 using GameOfLife.Presentation.ViewModels;
-using GameOfLife.Presentation.Views;
+using GameOfLife.Presentation.Views.Dialogs;
 
 namespace GameOfLife.Presentation;
 

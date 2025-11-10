@@ -3,7 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="600"
-        x:Class="GameOfLife.Presentation.Views.NewGameDialog"
+        x:Class="GameOfLife.Presentation.Views.Dialogs.NewGameDialog"
         Title="New Game"
         Width="700"
         Height="600"

@@ -2,43 +2,46 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
-        x:Class="GameOfLife.Presentation.Views.EmojiPickerDialog"
-        Title="Pick Emoji"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="180"
+        x:Class="GameOfLife.Presentation.Views.Dialogs.DeleteSaveDialog"
+        Title="Delete Save"
         Width="400"
-        Height="450"
+        Height="180"
         WindowStartupLocation="CenterOwner"
         CanResize="false">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
         <TextBlock Grid.Row="0"
-                   Text="Select an Emoji"
+                   Text="Delete Save"
                    FontSize="18"
                    FontWeight="Bold"/>
         
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
-            <WrapPanel x:Name="EmojiPanel" Orientation="Horizontal"/>
-        </ScrollViewer>
+        <TextBlock Grid.Row="2"
+                   x:Name="ConfirmationText"
+                   TextWrapping="Wrap"
+                   FontSize="14"/>
         
         <StackPanel Grid.Row="4" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right"
                     Spacing="10">
-            <Button Content="Clear"
-                    Width="100"
-                    Padding="10,8"
-                    Click="Clear_Click"/>
             <Button Content="Cancel"
                     Width="100"
                     Padding="10,8"
                     Click="Cancel_Click"/>
+            <Button Content="Delete"
+                    Width="100"
+                    Padding="10,8"
+                    Background="#D32F2F"
+                    Foreground="White"
+                    Click="Delete_Click"/>
         </StackPanel>
     </Grid>
 </Window>

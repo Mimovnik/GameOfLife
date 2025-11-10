@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:GameOfLife.Presentation.ViewModels"
              mc:Ignorable="d" d:DesignWidth="150" d:DesignHeight="60"
-             x:Class="GameOfLife.Presentation.Views.GameStatsPanel"
+             x:Class="GameOfLife.Presentation.Views.Components.GameStatsPanel"
              x:DataType="vm:GameViewModel">
     <StackPanel Orientation="Vertical" 
                 Margin="20,0,0,0"

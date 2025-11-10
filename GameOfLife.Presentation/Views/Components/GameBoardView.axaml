@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:GameOfLife.Presentation.ViewModels"
              xmlns:converters="clr-namespace:GameOfLife.Presentation.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
-             x:Class="GameOfLife.Presentation.Views.GameBoardView"
+             x:Class="GameOfLife.Presentation.Views.Components.GameBoardView"
              x:DataType="vm:BoardViewModel">
     <UserControl.Resources>
         <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>

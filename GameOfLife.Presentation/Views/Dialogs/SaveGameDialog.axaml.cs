@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 
-namespace GameOfLife.Presentation.Views;
+namespace GameOfLife.Presentation.Views.Dialogs;
 
 public partial class SaveGameDialog : Window
 {

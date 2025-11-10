@@ -2,7 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using GameOfLife.Presentation.ViewModels;
 
-namespace GameOfLife.Presentation.Views;
+namespace GameOfLife.Presentation.Views.Components;
 
 public partial class GameBoardView : UserControl
 {

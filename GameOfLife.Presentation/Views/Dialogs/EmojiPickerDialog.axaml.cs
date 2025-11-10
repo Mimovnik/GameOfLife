@@ -2,7 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 
-namespace GameOfLife.Presentation.Views;
+namespace GameOfLife.Presentation.Views.Dialogs;
 
 public partial class EmojiPickerDialog : Window
 {

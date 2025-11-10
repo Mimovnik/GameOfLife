@@ -5,7 +5,7 @@ using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using GameOfLife.Domain;
 
-namespace GameOfLife.Presentation.Views;
+namespace GameOfLife.Presentation.Views.Dialogs;
 
 public partial class SettingsDialog : Window
 {
